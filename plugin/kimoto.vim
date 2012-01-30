@@ -1,9 +1,9 @@
-let s:kimoto_endpoints = [
+let g:kimoto_endpoints = [
 \ { "name" : "mala",   "url" : "http://api.ma.la/twitter/"         },
 \ { "name" : "ssig33", "url" : "http://kimoto.ssig33.com/twitter/" },
 \]
 
-function! s:KimotoPost()
+function! KimotoPost(api)
   try
     call inputsave()
     redraw
@@ -11,7 +11,7 @@ function! s:KimotoPost()
     if len(status) == 0 | return | endif
     let yesno = confirm("Are you kimoto?", "&Yes\n&No")
     if yesno != 1 | return | endif
-    let endpoint = get(g:, 'default_kimoto_endpoint', '')
+    let endpoint = len(a:api) ? a:api : get(g:, 'default_kimoto_endpoint', '')
     if len(endpoint) == 0
       let item = inputlist(["Choose endpoint: "]
       \ + map(range(1, len(s:kimoto_endpoints)),
@@ -26,7 +26,7 @@ function! s:KimotoPost()
   endtry
 endfunction
 
-command! Kimoto :call <sid>KimotoPost()
+command! Kimoto :call KimotoPost('')
 nnoremap <silent> <plug>(kimoto) :<c-u>Kimoto<cr>
 silent! map <unique> <leader>kimoto <plug>(kimoto)
 
