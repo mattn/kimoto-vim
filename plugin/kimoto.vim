@@ -7,7 +7,7 @@ function! s:KimotoPost()
   let api = input("mala or ssig33: ")
   if yesno == 1
     if api == 'ssig33'
-      let res = http#post("http://kimoto.ssig33.com/twitter", {"status": status, "is_kimoto": 1})
+      let res = http#post("http://kimoto.ssig33.com/twitter/", {"status": status, "is_kimoto": 1})
     else
       let res = http#post("http://api.ma.la/twitter/", {"status": status, "is_kimoto": 1})
     endif
