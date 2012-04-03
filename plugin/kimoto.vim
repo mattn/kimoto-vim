@@ -19,7 +19,7 @@ function! KimotoPost(api)
       let endpoint = s:kimoto_endpoints[item-1].name
     endif
     let items = filter(copy(s:kimoto_endpoints), 'v:val.name==endpoint')
-    let res = http#post(items[0].url, {"status": status, "is_kimoto": 1})
+    let res = webapi#http#post(items[0].url, {"status": status, "is_kimoto": 1})
   catch
   finally
     call inputrestore()
